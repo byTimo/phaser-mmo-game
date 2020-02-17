@@ -1,0 +1,16 @@
+{
+  "name": "phaser-mmo-game",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "canvas": "^2.6.1",
+    "express": "^4.17.1",
+    "jsdom": "^16.2.0",
+    "socket.io": "^2.3.0"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "start:debug": "node --inspect server/index.js"
+  }
+}
