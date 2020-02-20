@@ -4,6 +4,8 @@ const express = require("express");
 const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io").listen(server);
+const Datauri = require("datauri");
+const datauri = new Datauri();
 const { JSDOM } = jsdom;
 
 app.use(express.static(__dirname + "/public"));
@@ -19,6 +21,12 @@ async function setupAuthoritativePhaser() {
         pretendToBeVisual: true,
     });
     try {
+        dom.window.URL.createObjectURL = (blob) => {
+            if (blob) {
+                return datauri.format(blob.type, blob[Object.getOwnPropertySymbols(blob)[0]]._buffer).content;
+            }
+        }
+        dom.window.URL.revokeObjectURL = url => { };
         dom.window.gameLoaded = () => {
             server.listen(8080, function () {
                 console.log("Start listening on " + server.address().port);
